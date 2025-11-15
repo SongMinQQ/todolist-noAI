@@ -1,5 +1,6 @@
 import { css } from "@emotion/css";
 import { DARKMODE, PRIMARY } from "../styles/theme";
+import useTheme from "../store/themeStore";
 
 const primaryStyle = css`
     background-color: ${PRIMARY.buttonBackground};
@@ -20,13 +21,13 @@ const darkStyle = css`
     }
   `
 interface ButtonProps {
-  varient?: 'primary' | 'dark',
   readonly children: React.ReactNode
 }
 const Button = (props: ButtonProps) => {
-  const { varient, children } = props;
+  const { theme } = useTheme();
+  const { children } = props;
   return (
-    <button className={varient == 'primary' ? primaryStyle : darkStyle}>
+    <button className={theme == 'primary' ? primaryStyle : darkStyle}>
       {children}
     </button>
   );
