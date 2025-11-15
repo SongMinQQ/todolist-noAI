@@ -6,7 +6,7 @@ import useTheme from "../store/themeStore";
 
 const headerStyle = css`
   background-color: transparent;
-  font-size: 30px;
+  font-size: 25px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -28,7 +28,7 @@ const Header = (props: HeaderProps) => {
       {left ? <BackBtn /> : <div></div>}
       <h1
         style={
-          theme === 'primary' ? {color: "black"}:{color: "white"}
+          theme === 'primary' ? {color: "black", margin: 0}:{color: "white", margin: 0}
       }>
         {title}
       </h1>
