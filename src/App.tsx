@@ -1,7 +1,6 @@
-import './App.css'
+import './App.css';
 import ThemeToggleBtn from './components/ThemeToggleBtn';
-import useTheme from './store/themeStore'
-import Button from './ui/Button'
+import useTheme from './store/themeStore';
 import { useEffect } from 'react';
 
 function App() {
