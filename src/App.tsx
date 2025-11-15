@@ -1,5 +1,5 @@
 import './App.css';
-import ThemeToggleBtn from './components/ThemeToggleBtn';
+import TodoList from './components/TodoList';
 import useTheme from './store/themeStore';
 import { useEffect } from 'react';
 
@@ -10,7 +10,7 @@ function App() {
   },[theme])
   return (
     <>
-      <ThemeToggleBtn/>
+      <TodoList/>
     </>
   )
 }
