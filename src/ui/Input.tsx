@@ -2,17 +2,28 @@ import { css } from "@emotion/css";
 import { DARKMODE, PRIMARY } from "../styles/theme";
 import useTheme from "../store/themeStore";
 
+const inputBaseStyle = `
+  border: 1px solid;
+  padding: 0.6rem 1rem;
+  width: 100%;
+  max-width: 400px;
+  min-width: 160px;
+  box-sizing: border-box;
+  border-radius: 5px;
+`;
+
 const primaryStyle = css`
+  ${inputBaseStyle};
   background-color: ${PRIMARY.inputBackground};
   color: ${PRIMARY.inputText};
   border-color: ${PRIMARY.inputBorder};
-  border-radius: 5px;
 `;
+
 const darkStyle = css`
+  ${inputBaseStyle};
   background-color: ${DARKMODE.inputBackground};
   color: ${DARKMODE.inputText};
   border-color: ${DARKMODE.inputBorder};
-  border-radius: 5px;
 `;
 
 interface InputProps {

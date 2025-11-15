@@ -9,7 +9,7 @@ const listContainerStyle = css`
   flex-direction: column;
   gap: 15px;
   justify-content: center;
-  max-width: 1000px;
+  max-width: 700px;
   margin: 20px auto;
   padding: 0px 20px;
 `

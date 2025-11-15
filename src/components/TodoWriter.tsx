@@ -8,12 +8,13 @@ const writeArea = css`
   gap: 15px;
   justify-content: center;
   margin-top: 20px;
+  padding: 10px;
 `
 const TodoWriter = () => {
   return (
     <div className={writeArea}>
       <ThemeToggleBtn />
-      <Input placeholder="할 일을 작성하세요" size={40}/>
+      <Input placeholder="할 일을 작성하세요"/>
       <TodoAddBtn/>
     </div>
   );
