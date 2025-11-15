@@ -21,13 +21,14 @@ const darkStyle = css`
     }
   `
 interface ButtonProps {
-  readonly children: React.ReactNode
+  readonly children: React.ReactNode;
+  onClick?: () => void;
 }
 const Button = (props: ButtonProps) => {
   const { theme } = useTheme();
-  const { children } = props;
+  const { children, onClick } = props;
   return (
-    <button className={theme == 'primary' ? primaryStyle : darkStyle}>
+    <button className={theme == 'primary' ? primaryStyle : darkStyle} onClick={onClick}>
       {children}
     </button>
   );
