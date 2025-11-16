@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from "react";
+import { useCallback, useReducer } from "react";
 import Header from "../ui/Header";
 import TodoListContainer from "./TodoListContainer";
 import TodoWriter from "./TodoWriter";
@@ -75,7 +75,7 @@ const TodoList = () => {
     }
     dispatch({ type: ActionKind.EDIT_TODO, payload: { id, task: newTask, isEdit: isEdit } });
   }, []);
-  
+
   const deleteTodo = useCallback((id: string) => {
     dispatch({ type: ActionKind.DELETE_TODO, payload: {id} });
   },[]);
