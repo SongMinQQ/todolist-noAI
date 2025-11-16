@@ -24,7 +24,7 @@ const Header = (props: HeaderProps) => {
   const {theme} = useTheme();
   const { title, left, right } = props;
   return (
-    <div className={headerStyle}>
+    <header className={headerStyle}>
       {left ? <BackBtn /> : <div></div>}
       <h1
         style={
@@ -33,7 +33,7 @@ const Header = (props: HeaderProps) => {
         {title}
       </h1>
       {right ? <ForwardBtn /> : <div></div>}
-    </div>
+    </header>
   );
 };
 
