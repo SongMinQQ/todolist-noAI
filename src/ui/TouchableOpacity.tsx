@@ -4,6 +4,7 @@ import type React from "react";
 const touchableStyle = css`
     background-color: transparent;
     border: none;
+    color: inherit;
   `
 
 interface TouchableOpacityProps {
