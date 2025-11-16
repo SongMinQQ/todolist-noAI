@@ -1,8 +1,7 @@
 import { css } from "@emotion/css";
-import Card from "../ui/Card";
-import { MdCheckBoxOutlineBlank } from "react-icons/md";
-import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import type { Todo } from "../types/todolist";
+import TodoListItem from "./TodoListItem";
 
 const listContainerStyle = css`
   display: flex;
@@ -12,26 +11,17 @@ const listContainerStyle = css`
   max-width: 700px;
   margin: 20px auto;
   padding: 0px 20px;
-`
-const TodoListContainer = () => {
+`;
+interface TodoListContainerProps{
+  todo: Todo[];
+}
+const TodoListContainer = (props: TodoListContainerProps) => {
+  const { todo } = props;
   return (
     <div className={listContainerStyle}>
-      <Card>
-        <MdCheckBoxOutlineBlank />
-        <span>아 다크모드 ㄹㅇ 괜히함 젠장할</span>
-        <div>
-          <MdEdit />
-          <MdDelete />
-        </div>
-      </Card>
-      <Card>
-        <MdCheckBoxOutlineBlank />
-        <span>디자인 ㅈㄴ귀찮네</span>
-        <div>
-          <MdEdit />
-          <MdDelete />
-        </div>
-      </Card>
+      {todo && todo.map((item) => (
+        <TodoListItem todo={item} key={item.id}/>
+      ))}
     </div>
   );
 };

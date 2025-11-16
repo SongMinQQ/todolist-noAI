@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import Header from "../ui/Header";
 import TodoListContainer from "./TodoListContainer";
 import TodoWriter from "./TodoWriter";
@@ -37,7 +37,17 @@ function reducer(state: Todo[], action: ActionType): Todo[] {
 const TodoList = () => {
   const [todo, dispatch] = useReducer(reducer, INITAL_STATE);
 
-  const addTodo = (params: Todo) => {
+  const addTodo = (task: string) => {
+    if (!task) {
+      alert("할 일을 입력하세요");
+      return;
+    }
+    const params: Todo = {
+      id: Date.now().toString(),
+      isCompleted: false,
+      task: task,
+      isEdit: false,
+    }
     dispatch({ type: ActionKind.ADD_TODO, payload: params });
   };
   const completeTodo = (params: Todo) => {
@@ -49,13 +59,11 @@ const TodoList = () => {
   const deleteTodo = (params: Todo) => {
     dispatch({ type: ActionKind.DELETE_TODO, payload: params });
   }
-  
-  
   return (
     <>
       <Header title="TODO LIST"/>
       <TodoWriter addTodo={addTodo} />
-      <TodoListContainer />
+      <TodoListContainer todo={todo} />
     </>
   );
 };
