@@ -23,7 +23,7 @@ const TodoWriter = ({ addTodo }: TodoWriterprops) => {
         placeholder="할 일을 작성하세요"
         value={task}
         onChange={(e)=>setTask(e.target.value)}
-        maxLength={50} />
+        maxLength={30} />
       <Button onClick={() => { addTodo(task); setTask(''); }}>
         ADD
       </Button>
