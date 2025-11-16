@@ -7,13 +7,13 @@ const touchableStyle = css`
     color: inherit;
   `
 
-interface TouchableOpacityProps {
+interface TouchableOpacityProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   readonly children: React.ReactNode;
-  onClick?: () => void;
 }
-const TouchableOpacity = ({ children, onClick }: TouchableOpacityProps) => {
+const TouchableOpacity = (props: TouchableOpacityProps) => {
+  const { children, ...rest} = props;
   return (
-    <button className={touchableStyle} onClick={onClick}>
+    <button className={touchableStyle} {...rest}>
       {children}
     </button>
   );
