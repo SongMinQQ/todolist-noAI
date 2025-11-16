@@ -1,9 +1,8 @@
 import { css } from "@emotion/css";
 import ThemeToggleBtn from "./ThemeToggleBtn";
 import Input from "../ui/Input";
-import TodoAddBtn from "./TodoAddBtn";
 import Button from "../ui/Button";
-import { useRef, useState } from "react";
+import { useState } from "react";
 const writeArea = css`
   display: flex;
   flex-direction: row;

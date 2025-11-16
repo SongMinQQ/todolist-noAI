@@ -10,10 +10,11 @@ const ActionKind ={
   COMPLETE_TODO : 'COMPLETE_TODO',
   DELETE_TODO : 'DELETE_TODO',
 } as const;
-interface ActionType{
-  type: keyof typeof ActionKind;
-  payload: Todo;
-};
+type ActionType =
+  | { type: typeof ActionKind.ADD_TODO; payload: Todo }
+  | { type: typeof ActionKind.EDIT_TODO; payload: { id: string; task: string } }
+  | { type: typeof ActionKind.COMPLETE_TODO; payload: { id: string } }
+  | { type: typeof ActionKind.DELETE_TODO; payload: { id: string } };
 
 const INITAL_STATE: Todo[] = [];
 
@@ -23,7 +24,7 @@ function reducer(state: Todo[], action: ActionType): Todo[] {
       return [ ...state, action.payload];
     case ActionKind.EDIT_TODO:
       return state.map((item) => 
-        item.id === action.payload.id ? action.payload : item
+        item.id === action.payload.id ? {...item, task: action.payload.task} : item
       )
     case ActionKind.DELETE_TODO:
       return state.filter((item) => item.id !== action.payload.id);
@@ -50,20 +51,25 @@ const TodoList = () => {
     }
     dispatch({ type: ActionKind.ADD_TODO, payload: params });
   };
-  const completeTodo = (params: Todo) => {
-    dispatch({ type: ActionKind.COMPLETE_TODO, payload: params });
+  const completeTodo = (id: string) => {
+    dispatch({ type: ActionKind.COMPLETE_TODO, payload: {id} });
   };
-  const editTodo = (params: Todo) => {
-    dispatch({ type: ActionKind.EDIT_TODO, payload: params });
+  const editTodo = (id: string, newTask: string) => {
+    dispatch({ type: ActionKind.EDIT_TODO, payload: {id , task: newTask} });
   }
-  const deleteTodo = (params: Todo) => {
-    dispatch({ type: ActionKind.DELETE_TODO, payload: params });
+  const deleteTodo = (id: string) => {
+    dispatch({ type: ActionKind.DELETE_TODO, payload: {id} });
   }
   return (
     <>
       <Header title="TODO LIST"/>
       <TodoWriter addTodo={addTodo} />
-      <TodoListContainer todo={todo} />
+      <TodoListContainer
+        todo={todo}
+        completeTodo={completeTodo}
+        editTodo={editTodo}
+        deleteTodo={deleteTodo}
+      />
     </>
   );
 };

@@ -1,5 +1,4 @@
 import { css } from "@emotion/css";
-import { MdDelete } from "react-icons/md";
 import type { Todo } from "../types/todolist";
 import TodoListItem from "./TodoListItem";
 
@@ -14,13 +13,16 @@ const listContainerStyle = css`
 `;
 interface TodoListContainerProps{
   todo: Todo[];
+  completeTodo: (id: string) => void;
+  editTodo: (id: string, newTask: string) => void;
+  deleteTodo: (id: string) => void;
 }
 const TodoListContainer = (props: TodoListContainerProps) => {
-  const { todo } = props;
+  const { todo, completeTodo, editTodo, deleteTodo } = props;
   return (
     <div className={listContainerStyle}>
       {todo && todo.map((item) => (
-        <TodoListItem todo={item} key={item.id}/>
+        <TodoListItem todo={item} key={item.id} completeTodo={completeTodo} editTodo={editTodo} deleteTodo={deleteTodo}/>
       ))}
     </div>
   );
