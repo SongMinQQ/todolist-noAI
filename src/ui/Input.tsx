@@ -26,23 +26,17 @@ const darkStyle = css`
   border-color: ${DARKMODE.inputBorder};
 `;
 
-interface InputProps {
-  placeholder?: string;
-  value?: string;
-  type?: string;
-  size?: number;
-  maxLength?: number;
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>{
+  ref?: React.Ref<HTMLInputElement>;
 }
-const Input = ({placeholder, value, type = 'text', size = 20, maxLength = 100}: InputProps) => {
+const Input = (props: InputProps) => {
   const { theme } = useTheme();
+  const { ref: inputRef, className, ...rest } = props;
   return (
     <input
       className={theme === 'primary' ? primaryStyle : darkStyle}
-      placeholder={placeholder}
-      value={value}
-      type={type}
-      size={size}
-      maxLength={maxLength}
+      ref={inputRef}
+      {...rest}
     >
       
     </input>

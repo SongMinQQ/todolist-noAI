@@ -20,15 +20,18 @@ const darkStyle = css`
       background-color: ${DARKMODE.buttonHover}
     }
   `
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   readonly children: React.ReactNode;
-  onClick?: () => void;
 }
 const Button = (props: ButtonProps) => {
   const { theme } = useTheme();
-  const { children, onClick } = props;
+  const { children, onClick, ...rest } = props;
   return (
-    <button className={theme == 'primary' ? primaryStyle : darkStyle} onClick={onClick}>
+    <button
+      className={theme == 'primary' ? primaryStyle : darkStyle}
+      onClick={onClick}
+      {...rest}
+    >
       {children}
     </button>
   );
