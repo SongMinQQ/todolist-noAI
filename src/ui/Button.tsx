@@ -3,7 +3,7 @@ import { DARKMODE, PRIMARY } from "../styles/theme";
 import useTheme from "../store/themeStore";
 
 const baseButtonStyle = css`
-  border: 8px;
+  border-radius: 8px;
   padding: 0.6em 1.2em;
 `
 const primaryStyle = css`
