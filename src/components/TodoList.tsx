@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import Header from "../ui/Header";
 import TodoListContainer from "./TodoListContainer";
 import TodoWriter from "./TodoWriter";
@@ -46,11 +46,11 @@ function reducer(state: Todo[], action: ActionType): Todo[] {
 const TodoList = () => {
   const [todo, dispatch] = useReducer(reducer, INITAL_STATE);
 
-  const noTaskAlert = () => {
+  const noTaskAlert = useCallback(() => {
     alert("할 일을 입력하세요");
-  }
+  },[])
   
-  const addTodo = (task: string) => {
+  const addTodo = useCallback((task: string) => {
     if (!task) {
       noTaskAlert();
       return;
@@ -62,20 +62,23 @@ const TodoList = () => {
       isEdit: false,
     }
     dispatch({ type: ActionKind.ADD_TODO, payload: params });
-  };
-  const completeTodo = (id: string) => {
+  }, []);
+  
+  const completeTodo = useCallback((id: string) => {
     dispatch({ type: ActionKind.COMPLETE_TODO, payload: {id} });
-  };
-  const editTodo = (id: string, newTask: string, isEdit: boolean) => {
+  }, []);
+  
+  const editTodo = useCallback((id: string, newTask: string, isEdit: boolean) => {
     if (!newTask) {
       noTaskAlert();
       return;
     }
-    dispatch({ type: ActionKind.EDIT_TODO, payload: {id , task: newTask, isEdit: isEdit} });
-  }
-  const deleteTodo = (id: string) => {
+    dispatch({ type: ActionKind.EDIT_TODO, payload: { id, task: newTask, isEdit: isEdit } });
+  }, []);
+  
+  const deleteTodo = useCallback((id: string) => {
     dispatch({ type: ActionKind.DELETE_TODO, payload: {id} });
-  }
+  },[]);
   return (
     <>
       <Header title="TODO LIST"/>
