@@ -2,6 +2,8 @@ import { css } from "@emotion/css";
 import ThemeToggleBtn from "./ThemeToggleBtn";
 import Input from "../ui/Input";
 import TodoAddBtn from "./TodoAddBtn";
+import Button from "../ui/Button";
+import { useRef, useState } from "react";
 const writeArea = css`
   display: flex;
   flex-direction: row;
@@ -9,13 +11,23 @@ const writeArea = css`
   justify-content: center;
   margin-top: 20px;
   padding: 10px;
-`
-const TodoWriter = () => {
+`;
+interface TodoWriterprops{
+  addTodo: (task: string) => void;
+}
+const TodoWriter = ({ addTodo }: TodoWriterprops) => {
+  const [task, setTask] = useState<string>('');
   return (
     <div className={writeArea}>
       <ThemeToggleBtn />
-      <Input placeholder="할 일을 작성하세요"/>
-      <TodoAddBtn/>
+      <Input
+        placeholder="할 일을 작성하세요"
+        value={task}
+        onChange={(e)=>setTask(e.target.value)}
+        maxLength={50} />
+      <Button onClick={() => { addTodo(task); setTask(''); }}>
+        ADD
+      </Button>
     </div>
   );
 };
