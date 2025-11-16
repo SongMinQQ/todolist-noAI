@@ -14,7 +14,7 @@ const listContainerStyle = css`
 interface TodoListContainerProps{
   todo: Todo[];
   completeTodo: (id: string) => void;
-  editTodo: (id: string, newTask: string) => void;
+  editTodo: (id: string, newTask: string, isEdit: boolean) => void;
   deleteTodo: (id: string) => void;
 }
 const TodoListContainer = (props: TodoListContainerProps) => {

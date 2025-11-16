@@ -10,9 +10,10 @@ const ActionKind ={
   COMPLETE_TODO : 'COMPLETE_TODO',
   DELETE_TODO : 'DELETE_TODO',
 } as const;
+
 type ActionType =
   | { type: typeof ActionKind.ADD_TODO; payload: Todo }
-  | { type: typeof ActionKind.EDIT_TODO; payload: { id: string; task: string } }
+  | { type: typeof ActionKind.EDIT_TODO; payload: { id: string; task: string, isEdit: boolean } }
   | { type: typeof ActionKind.COMPLETE_TODO; payload: { id: string } }
   | { type: typeof ActionKind.DELETE_TODO; payload: { id: string } };
 
@@ -23,9 +24,16 @@ function reducer(state: Todo[], action: ActionType): Todo[] {
     case ActionKind.ADD_TODO:
       return [ ...state, action.payload];
     case ActionKind.EDIT_TODO:
-      return state.map((item) => 
-        item.id === action.payload.id ? {...item, task: action.payload.task} : item
-      )
+      if (!action.payload.isEdit) {
+        return state.map((item) =>
+          item.id === action.payload.id ? { ...item, isEdit: !action.payload.isEdit } : item
+        )
+      }
+      else {
+        return state.map((item) =>
+          item.id === action.payload.id ? { ...item, task: action.payload.task, isEdit: !action.payload.isEdit } : item
+        )
+      }
     case ActionKind.DELETE_TODO:
       return state.filter((item) => item.id !== action.payload.id);
     case ActionKind.COMPLETE_TODO:
@@ -38,9 +46,13 @@ function reducer(state: Todo[], action: ActionType): Todo[] {
 const TodoList = () => {
   const [todo, dispatch] = useReducer(reducer, INITAL_STATE);
 
+  const noTaskAlert = () => {
+    alert("할 일을 입력하세요");
+  }
+  
   const addTodo = (task: string) => {
     if (!task) {
-      alert("할 일을 입력하세요");
+      noTaskAlert();
       return;
     }
     const params: Todo = {
@@ -54,8 +66,12 @@ const TodoList = () => {
   const completeTodo = (id: string) => {
     dispatch({ type: ActionKind.COMPLETE_TODO, payload: {id} });
   };
-  const editTodo = (id: string, newTask: string) => {
-    dispatch({ type: ActionKind.EDIT_TODO, payload: {id , task: newTask} });
+  const editTodo = (id: string, newTask: string, isEdit: boolean) => {
+    if (!newTask) {
+      noTaskAlert();
+      return;
+    }
+    dispatch({ type: ActionKind.EDIT_TODO, payload: {id , task: newTask, isEdit: isEdit} });
   }
   const deleteTodo = (id: string) => {
     dispatch({ type: ActionKind.DELETE_TODO, payload: {id} });
