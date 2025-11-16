@@ -2,7 +2,7 @@ import { MdCheckBoxOutlineBlank, MdDelete, MdEdit, MdOutlineCheckBox, MdCheck } 
 import Card from "../ui/Card";
 import type { Todo } from "../types/todolist";
 import TouchableOpacity from "../ui/TouchableOpacity";
-import { useState } from "react";
+import { memo, useState } from "react";
 import Input from "../ui/Input";
 
 interface TodoListItemProps{
@@ -47,4 +47,6 @@ const TodoListItem = (props: TodoListItemProps) => {
   );
 };
 
-export default TodoListItem;
+export default memo(
+  TodoListItem,
+  (prevProps: TodoListItemProps, nextProps: TodoListItemProps) => prevProps.todo === nextProps.todo);
