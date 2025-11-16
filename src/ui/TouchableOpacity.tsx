@@ -2,10 +2,10 @@ import { css } from "@emotion/css";
 import type React from "react";
 
 const touchableStyle = css`
-    background-color: transparent;
-    border: none;
-    color: inherit;
-  `
+  background-color: transparent;
+  border: none;
+  color: inherit;
+`;
 
 interface TouchableOpacityProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   readonly children: React.ReactNode;
