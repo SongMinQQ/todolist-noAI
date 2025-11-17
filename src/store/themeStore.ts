@@ -1,13 +1,24 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 type theme = 'primary' | 'dark';
-interface themeStore {
-  theme: theme,
-  toggleTheme: () => void
+interface ThemeStore {
+  theme: theme
 }
-const useTheme = create<themeStore>((set) => ({
-  theme: 'primary',
-  toggleTheme: () => set((state) => ({ theme: state.theme === 'primary' ? 'dark' : 'primary' })),
-}))
+type ThemeActions = {
+  toggleTheme: () => void;
+}
+const useTheme = create<ThemeStore & ThemeActions>()(
+  persist(
+    (set) => ({
+      theme: 'primary',
+      toggleTheme: () => set((state) => ({ theme: state.theme === 'primary' ? 'dark' : 'primary' })),
+    }),
+    {
+      name: 'theme-storage',
+      storage: createJSONStorage(()=> localStorage),
+    }
+  )
+)
 
 export default useTheme;
